@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+---
+
+<BaseLayout title="404 - Not Found | Tencio">
+  <main class="min-h-screen flex flex-col items-center justify-center text-center px-6">
+    <h1 class="text-display text-text mb-4">404</h1>
+    <p class="text-h2 text-muted mb-8">This page got lost in the ether.</p>
+    <Button href="/" class="h-12 px-8 text-base bg-accent text-accent-fg">Go back home</Button>
+  </main>
+</BaseLayout>

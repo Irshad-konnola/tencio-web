@@ -1,0 +1,151 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+import Button from '../ui/Button.astro';
+---
+<header class="fixed top-0 w-full z-50 transition-all duration-300 backdrop-blur-xl bg-bg/80 border-b border-border/50" id="navbar">
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-accent text-accent-fg px-4 py-2 rounded-md z-50">Skip to content</a>
+
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between w-full">
+    <a href="/" class="flex items-center gap-2 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm active:scale-95 transition-transform" aria-label="Tencio Home">
+      <span class="text-xl font-bold tracking-tight text-text transition-colors group-hover:text-text">Tencio</span>
+      <span class="w-2 h-2 rounded-full bg-accent group-hover:scale-125 transition-transform"></span>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-8">
+      <a href="#about" class="text-sm font-medium text-muted hover:text-accent active:scale-95 transition-all">About</a>
+      <a href="#services" class="text-sm font-medium text-muted hover:text-accent active:scale-95 transition-all">Services</a>
+      <a href="#work" class="text-sm font-medium text-muted hover:text-accent active:scale-95 transition-all">Work</a>
+      <a href="#process" class="text-sm font-medium text-muted hover:text-accent active:scale-95 transition-all">Process</a>
+    </nav>
+
+    <div class="hidden md:flex items-center gap-4">
+      <ThemeToggle />
+      <Button href="#start" class="h-9 px-4 text-xs active:scale-95 transition-transform">Start a project &rarr;</Button>
+    </div>
+
+    <button id="mobile-menu-btn" class="md:hidden flex p-2 text-text hover:text-accent active:scale-90 transition-all cursor-pointer" aria-expanded="false" aria-label="Toggle menu">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="4" x2="20" y1="12" y2="12" />
+        <line x1="4" x2="20" y1="6" y2="6" />
+        <line x1="4" x2="20" y1="18" y2="18" />
+      </svg>
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="fixed inset-0 h-[100dvh] w-screen bg-bg/90 backdrop-blur-md z-40 hidden flex-col items-center justify-center opacity-0 transition-opacity duration-300 px-6">
+    
+    <button id="close-menu-btn" class="absolute top-6 right-6 p-2 text-text hover:text-accent active:scale-90 transition-all cursor-pointer">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+
+    <div class="w-full max-w-sm bg-bg border border-border p-6 rounded-2xl flex flex-col gap-8 shadow-2xl shadow-accent/5">
+      <nav class="flex flex-col gap-4">
+        <a href="#about" class="mobile-link flex items-center justify-between text-lg font-medium text-text hover:text-accent active:text-accent active:scale-[0.98] transition-all border-b border-border/50 pb-4">
+          About <span class="text-xs text-muted font-mono">01</span>
+        </a>
+        <a href="#services" class="mobile-link flex items-center justify-between text-lg font-medium text-text hover:text-accent active:text-accent active:scale-[0.98] transition-all border-b border-border/50 pb-4">
+          Services <span class="text-xs text-muted font-mono">02</span>
+        </a>
+        <a href="#work" class="mobile-link flex items-center justify-between text-lg font-medium text-text hover:text-accent active:text-accent active:scale-[0.98] transition-all border-b border-border/50 pb-4">
+          Work <span class="text-xs text-muted font-mono">03</span>
+        </a>
+        <a href="#process" class="mobile-link flex items-center justify-between text-lg font-medium text-text hover:text-accent active:text-accent active:scale-[0.98] transition-all pb-2">
+          Process <span class="text-xs text-muted font-mono">04</span>
+        </a>
+      </nav>
+      
+      <div class="flex items-center justify-between pt-2">
+        <ThemeToggle />
+        <Button href="#start" class="mobile-link h-10 px-5 text-sm active:scale-95 transition-transform">Start a project &rarr;</Button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Mobile Menu Logic
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const closeMenuBtn = document.getElementById('close-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+  let isMenuOpen = false;
+
+  const toggleMenu = () => {
+    if (!mobileMenu || !mobileMenuBtn) return;
+    isMenuOpen = !isMenuOpen;
+    
+    mobileMenuBtn.setAttribute('aria-expanded', isMenuOpen.toString());
+
+    if (isMenuOpen) {
+      mobileMenu.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      void mobileMenu.offsetWidth; 
+      mobileMenu.classList.remove('opacity-0');
+      mobileMenu.classList.add('opacity-100');
+    } else {
+      mobileMenu.classList.remove('opacity-100');
+      mobileMenu.classList.add('opacity-0');
+      document.body.style.overflow = '';
+      setTimeout(() => {
+        mobileMenu.classList.add('hidden');
+      }, 300);
+    }
+  };
+
+  mobileMenuBtn?.addEventListener('click', toggleMenu);
+  closeMenuBtn?.addEventListener('click', toggleMenu);
+  mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+  // Navbar hide on scroll down, show on scroll up
+  let lastScrollY = window.scrollY;
+  const navbar = document.getElementById('navbar');
+  
+  window.addEventListener('scroll', () => {
+    if (!navbar) return;
+    if (window.scrollY > lastScrollY && window.scrollY > 100) {
+      navbar.style.transform = 'translateY(-100%)';
+    } else {
+      navbar.style.transform = 'translateY(0)';
+    }
+    lastScrollY = window.scrollY;
+  }, { passive: true });
+
+  // Fix Anchor Routing - Hooking directly into Lenis
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      const link = e.currentTarget;
+      
+      if (!(link instanceof HTMLAnchorElement)) return;
+      
+      const targetId = link.getAttribute('href');
+      if (!targetId || targetId === '#') return;
+      
+      e.preventDefault();
+      
+      if (typeof isMenuOpen !== 'undefined' && isMenuOpen) {
+        toggleMenu();
+      }
+
+      const lenis = (window as any).lenis;
+      
+      if (lenis) {
+        lenis.scrollTo(targetId, {
+          offset: -64, 
+          duration: 1.2,
+          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) 
+        });
+      } else {
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          const elementPosition = targetElement.getBoundingClientRect().top;
+          window.scrollTo({
+            top: elementPosition + window.scrollY - 64,
+            behavior: 'smooth'
+          });
+        }
+      }
+
+      history.pushState(null, '', targetId);
+    });
+  });
+</script>

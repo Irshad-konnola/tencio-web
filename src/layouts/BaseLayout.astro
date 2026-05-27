@@ -1,0 +1,128 @@
+---
+import '../styles/global.css';
+import '../styles/animations.css';
+import LoadingScreen from '../components/global/LoadingScreen.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "Tencio | Digital Product Agency",
+  description = "Tencio is a lean digital product agency located in Malappuram, Kerala. We build high-performance web products with clean code, sharp design, and AI."
+} = Astro.props;
+
+// Updated to your official domain
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://tencio.in');
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL('/og-image.png', canonicalURL)} />
+    
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL('/og-image.png', canonicalURL)} />
+
+    <meta name="theme-color" content="#B6FF00">
+    <meta name="privacy-policy" content="https://tencio.in/privacy">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <script type="speculationrules">
+    {
+      "prefetch": [{ "source": "document", "eagerness": "moderate" }]
+    }
+    </script>
+    
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://tencio.in/#org",
+            "name": "Tencio",
+            "url": "https://tencio.in",
+            "logo": "https://tencio.in/favicon.png",
+            "contactPoint": { "@type": "ContactPoint", "contactType": "sales", "email": "tenciotech@gmail.com" }
+          },
+          {
+            "@type": "LocalBusiness",
+            "name": "Tencio",
+            "image": "https://tencio.in/og-image.png",
+            "@id": "https://tencio.in/#localbiz",
+            "url": "https://tencio.in",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Malappuram",
+              "addressRegion": "Kerala",
+              "addressCountry": "IN"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://tencio.in/#website",
+            "url": "https://tencio.in",
+            "name": "Tencio",
+            "publisher": { "@id": "https://tencio.in/#org" }
+          },
+          {
+            "@type": "Service",
+            "serviceType": "Digital Product Development",
+            "provider": { "@id": "https://tencio.in/#org" },
+            "areaServed": "Worldwide"
+          }
+        ]
+      }
+    </script>
+
+    <script is:inline>
+      const getTheme = () => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('tencio-theme')) {
+          return localStorage.getItem('tencio-theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      };
+      const theme = getTheme();
+      document.documentElement.setAttribute('data-theme', theme);
+    </script>
+  </head>
+  <body>
+    <LoadingScreen/>
+    <slot />
+    
+    <script>
+      import Lenis from 'lenis';
+      const lenis = new Lenis({
+        autoRaf: true,
+        duration: 1.2,
+      });
+      
+      // Add this line to expose Lenis globally
+      (window as any).lenis = lenis;
+    </script>
+  </body>
+</html>

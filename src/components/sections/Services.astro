@@ -1,0 +1,82 @@
+---
+const services = [
+  {
+    title: "Web Engineering",
+    description: "Full-stack Astro, Next.js, and edge-ready scalable web applications.",
+    icon: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" 
+  },
+  {
+    title: "App Development",
+    description: "Cross-platform mobile apps for iOS and Android built for performance.",
+    icon: "M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" 
+  },
+  {
+    title: "UI/UX Design",
+    description: "Design systems, intuitive user experiences, and premium aesthetics.",
+    icon: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" 
+  },
+  {
+    title: "Logo & Branding",
+    description: "Memorable brand identities, typography, and cohesive visual language.",
+    icon: "M12 19l7-7 3 3-7 7-3-3zM18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5zM2 2l7.586 7.586" // custom pen/brush-ish shape
+  },
+  {
+    title: "Poster & Creatives",
+    description: "High-impact posters, social media creatives, and marketing assets.",
+    icon: "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" 
+  },
+  {
+    title: "Performance Optimization",
+    description: "Core Web Vitals audits, rendering strategy, and load time engineering.",
+    icon: "M13 10V3L4 14h7v7l9-11h-7z" 
+  }
+];
+---
+<section id="services" class="py-32 bg-surface/30 scroll-mt-16 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16 fade-up-services">
+      <h2 class="text-h2 font-bold text-text mb-4">Our Services</h2>
+      <p class="text-muted text-lg max-w-2xl mx-auto">Comprehensive digital solutions to elevate your brand.</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {services.map((service, i) => (
+        <div 
+          class="fade-up-services p-8 rounded-2xl bg-bg border border-border hover:border-accent transition-colors duration-300 group"
+          style={`transition-delay: ${0}ms;`}
+        >
+          <div class="w-12 h-12 rounded-lg bg-surface flex items-center justify-center text-text group-hover:text-accent group-hover:bg-accent/10 transition-colors mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d={service.icon} />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-text mb-3">{service.title}</h3>
+          <p class="text-muted leading-relaxed text-sm">
+            {service.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  
+  gsap.utils.toArray('.fade-up-services').forEach((el: any, i) => {
+    gsap.fromTo(el, 
+      { y: 40, opacity: 0 },
+      {
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+        },
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        delay: el.classList.contains('p-8') ? (i % 3) * 0.1 : 0,
+        ease: "power2.out"
+      }
+    );
+  });
+</script>

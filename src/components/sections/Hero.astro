@@ -1,0 +1,39 @@
+---
+import Button from '../ui/Button.astro';
+---
+<section id="hero" class="relative min-h-[90vh] flex items-center justify-center pt-24 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6 text-center z-10 w-full flex flex-col items-center">
+    <h1 class="text-display fade-up mb-6 max-w-5xl mx-auto text-text">
+      Code-first. Design-led. <span class="text-accent">AI-powered.</span>
+    </h1>
+    <p class="text-h2 text-muted fade-up mb-12 max-w-2xl mx-auto" style="animation-delay: 0.1s">
+      We build digital products that move fast and last long.
+    </p>
+    <div class="flex flex-col sm:flex-row items-center gap-4 fade-up w-full sm:w-auto px-4 sm:px-0" style="animation-delay: 0.2s">
+      <Button href="#start" class="w-full sm:w-auto h-12 px-8 text-base active:scale-95 transition-transform">Start your project &rarr;</Button>
+      <Button href="#work" variant="outline" class="w-full sm:w-auto h-12 px-8 text-base active:scale-95 transition-transform">See our work</Button>
+    </div>
+  </div>
+  
+  <div class="absolute inset-0 z-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px]"></div>
+  
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] min-w-[300px] min-h-[300px] bg-accent/5 rounded-full blur-[100px] pointer-events-none z-0"></div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  
+  // Wrapped in matchMedia for accessibility compliance
+  let mm = gsap.matchMedia();
+  
+  mm.add("(prefers-reduced-motion: no-preference)", () => {
+    gsap.to('#hero .fade-up', {
+      y: 0,
+      opacity: 1,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: "power3.out",
+      delay: 0.2
+    });
+  });
+</script>

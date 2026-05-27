@@ -1,0 +1,53 @@
+---
+const steps = [
+  { num: "01", title: "Discover & Strategy", desc: "Understanding your goals, scoping the MVP, and planning the technical architecture." },
+  { num: "02", title: "Design & Prototype", desc: "Crafting a premium aesthetic, intuitive UI/UX, and an interactive prototype." },
+  { num: "03", title: "Build & Integrate", desc: "Developing the product with clean code, robust APIs, and seamless AI integrations." },
+  { num: "04", title: "Ship & Iterate", desc: "Launching with performance optimizations and continuous improvements based on data." }
+];
+---
+<section id="process" class="py-32 scroll-mt-16 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16 fade-up-process">
+      <h2 class="text-h2 font-bold text-text mb-4">How We Work</h2>
+      <p class="text-muted text-lg max-w-2xl mx-auto">A proven process for shipping high-performance digital products.</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+      {steps.map((step, i) => (
+        <div class="fade-up-process relative group">
+          <!-- Connector line -->
+          {i !== steps.length - 1 && (
+            <div class="hidden lg:block absolute top-6 left-12 w-full h-px bg-border z-0"></div>
+          )}
+          <div class="relative z-10 w-12 h-12 rounded-full bg-surface border border-border flex items-center justify-center text-text font-mono text-sm mb-6 group-hover:border-accent transition-colors duration-300">
+            {step.num}
+          </div>
+          <h3 class="text-xl font-bold text-text mb-3">{step.title}</h3>
+          <p class="text-muted text-sm leading-relaxed">{step.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  
+  gsap.utils.toArray('.fade-up-process').forEach((el: any, i) => {
+    gsap.fromTo(el, 
+      { y: 40, opacity: 0 },
+      {
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+        },
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        delay: el.classList.contains('group') ? (i-1) * 0.15 : 0,
+        ease: "power2.out"
+      }
+    );
+  });
+</script>

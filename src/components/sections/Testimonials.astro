@@ -1,0 +1,53 @@
+---
+import testimonials from '../../content/testimonials.json';
+---
+<section class="py-32 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16 fade-up-test">
+      <h2 class="text-h2 font-bold text-text mb-4">What Clients Say</h2>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      {testimonials.map((test, i) => (
+        <div class="fade-up-test p-8 rounded-2xl bg-surface/50 border border-border hover:border-accent/50 transition-colors">
+          <div class="text-accent mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.036c0 1.028 1 2.964 1 2.964zm14 0c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.036c0 1.028 1 2.964 1 2.964z"/></svg>
+          </div>
+          <p class="text-lg text-text leading-relaxed mb-8">"{test.quote}"</p>
+          <div>
+            <div class="font-bold text-text">{test.author}</div>
+            <div class="text-sm text-muted">{test.role}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+  
+  let mm = gsap.matchMedia();
+  
+  mm.add("(prefers-reduced-motion: no-preference)", () => {
+    gsap.utils.toArray('.fade-up-test').forEach((el: any, i) => {
+      gsap.fromTo(el, 
+        { y: 40, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: el,
+            start: "top 85%",
+          },
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          delay: el.classList.contains('p-8') ? (i-1) * 0.2 : 0,
+          ease: "power2.out"
+        }
+      );
+    });
+  });
+</script>

@@ -1,0 +1,78 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Navbar from "../components/global/Navbar.astro";
+import Footer from "../components/global/Footer.astro";
+import Hero from "../components/sections/Hero.astro";
+import About from "../components/sections/About.astro";
+import Services from "../components/sections/Services.astro";
+import Process from "../components/sections/Process.astro";
+import WorkShowcase from "../components/sections/WorkShowcase.astro";
+import Testimonials from "../components/sections/Testimonials.astro";
+import CTABanner from "../components/sections/CTABanner.astro";
+import BlueprintGenerator from "../components/ai/BlueprintGenerator";
+---
+
+<BaseLayout>
+  <Navbar />
+
+  <main id="main-content">
+    <Hero />
+    <About />
+    <Services />
+    <Process />
+    <WorkShowcase />
+    <Testimonials />
+
+    <section id="start" class="py-32 scroll-mt-16 bg-surface/30">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16 fade-up-ai">
+          <h2 class="text-h2 font-bold text-text mb-4">
+            Project Blueprint Generator
+          </h2>
+          <p class="text-muted text-lg max-w-2xl mx-auto">
+            Let our AI strategist clarify your requirements and instantly
+            generate a technical blueprint.
+          </p>
+        </div>
+
+        <div class="fade-up-ai">
+          <BlueprintGenerator client:only="react" />
+        </div>
+      </div>
+    </section>
+
+    <CTABanner />
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Accessibility: Respects OS reduced motion settings
+  let mm = gsap.matchMedia();
+
+  mm.add("(prefers-reduced-motion: no-preference)", () => {
+    gsap.utils.toArray(".fade-up-ai").forEach((el: any, i) => {
+      gsap.fromTo(
+        el,
+        { y: 40, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: el,
+            start: "top 85%",
+          },
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          delay: i * 0.2,
+          ease: "power2.out",
+        },
+      );
+    });
+  });
+</script>

@@ -1,0 +1,85 @@
+---
+import projects from '../../content/projects.json';
+---
+<section id="work" class="py-32 bg-surface/30 scroll-mt-16 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16 fade-up-work">
+      <h2 class="text-h2 font-bold text-text mb-4">Selected Work</h2>
+      <p class="text-muted text-lg max-w-2xl mx-auto">A glimpse into our recent digital projects.</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {projects.map((project, i) => {
+        // Dynamically choose to render a Link or a standard Div based on data
+        const Element = project.url ? 'a' : 'div';
+        
+        return (
+          <Element 
+            href={project.url} 
+            target={project.url ? "_blank" : undefined}
+            rel={project.url ? "noopener noreferrer" : undefined}
+            class="fade-up-work group cursor-pointer block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-2xl"
+            aria-label={project.url ? `Visit ${project.title} live website` : undefined}
+          >
+            <div class="relative overflow-hidden rounded-2xl mb-6 aspect-4/3 bg-bg border border-border shadow-sm">
+              <img 
+                src={project.image} 
+                alt={`Screenshot of ${project.title}`} 
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+                decoding="async"
+              />
+              
+              {/* Premium Hover Overlay for Live Links */}
+              <div class="absolute inset-0 bg-bg/0 group-hover:bg-bg/20 transition-colors duration-500 flex items-center justify-center">
+                {project.url && (
+                  <div class="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 bg-accent text-accent-fg p-3 rounded-full shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
+                    </svg>
+                  </div>
+                )}
+              </div>
+            </div>
+            
+            <div class="px-2">
+              <div class="text-xs font-mono text-accent mb-2 uppercase tracking-wider">{project.category}</div>
+              <h3 class="text-xl font-bold text-text mb-2 group-hover:text-accent transition-colors flex items-center gap-2">
+                {project.title}
+              </h3>
+              <p class="text-muted text-sm leading-relaxed">{project.desc}</p>
+            </div>
+          </Element>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  
+  gsap.registerPlugin(ScrollTrigger);
+  
+  let mm = gsap.matchMedia();
+  
+  mm.add("(prefers-reduced-motion: no-preference)", () => {
+    gsap.utils.toArray('.fade-up-work').forEach((el: any, i) => {
+      gsap.fromTo(el, 
+        { y: 40, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: el,
+            start: "top 85%",
+          },
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          delay: el.classList.contains('group') ? (i-1) * 0.15 : 0,
+          ease: "power2.out"
+        }
+      );
+    });
+  });
+</script>

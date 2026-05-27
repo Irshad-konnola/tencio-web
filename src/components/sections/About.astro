@@ -1,0 +1,47 @@
+---
+---
+<section id="about" class="py-32 scroll-mt-16 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <!-- Story -->
+    <div class="flex flex-col gap-6 fade-up-about">
+      <h2 class="text-h2 font-bold text-text">The Lean Agency</h2>
+      <p class="text-body text-muted leading-relaxed">
+        Tencio is a lean digital product agency located in Malappuram, Kerala. We partner with founders, teams, and brands to architect, build, and ship high-performance web products.
+      </p>
+      <p class="text-body text-muted leading-relaxed">
+        No fluff. Just clean code, sharp design, and AI that earns its place.
+      </p>
+    </div>
+    
+    <!-- Capabilities -->
+    <div class="flex flex-wrap gap-3 fade-up-about" style="animation-delay: 0.2s">
+      {
+        ['Web Engineering', 'App Development', 'UI/UX Design', 'Logo Design', 'Branding', 'Poster Making', 'Performance Optimization', 'Generative AI'].map((tag) => (
+          <span class="px-4 py-2 rounded-full border border-border text-sm font-medium text-text bg-surface hover:border-accent hover:text-accent-fg hover:bg-accent transition-colors cursor-default">
+            {tag}
+          </span>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  
+  gsap.utils.toArray('.fade-up-about').forEach((el: any) => {
+    gsap.fromTo(el, 
+      { y: 40, opacity: 0 },
+      {
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+        },
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: "power2.out"
+      }
+    );
+  });
+</script>
