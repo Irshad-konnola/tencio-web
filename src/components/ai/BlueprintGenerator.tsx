@@ -6,7 +6,6 @@ import { Send, Loader2, Sparkles, CheckCircle2, Bot, AlertCircle } from 'lucide-
 export default function BlueprintGenerator() {
   const [input, setInput] = useState('');
 
-  // Added setMessages to manually clear the chat history after submission
   const { messages, sendMessage, status, error, setMessages } = useChat({
     transport: new DefaultChatTransport({
       api: '/api/blueprint',
@@ -17,17 +16,35 @@ export default function BlueprintGenerator() {
   const isLoading = status === 'submitted' || status === 'streaming';
   const [blueprint, setBlueprint] = useState<any>(null);
   
-  // Controlled inputs for the Lead Form
   const [showLeadForm, setShowLeadForm] = useState(false);
   const [leadStatus, setLeadStatus] = useState<'idle' | 'loading' | 'success'>('idle');
   const [leadForm, setLeadForm] = useState({ name: '', contact: '' });
   
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll chat to bottom
+  // SMART AUTO-SCROLL: Only scrolls if the user is already at the bottom
+  // This completely stops the component from "fighting" the user's scroll wheel
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+    const container = chatContainerRef.current;
+    if (!container) return;
+    
+    const isNearBottom = container.scrollHeight - container.scrollTop <= container.clientHeight + 100;
+    
+    if (isNearBottom) {
+      container.scrollTo({
+        top: container.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
+  }, [messages]); 
+
+  // Dynamic Placeholder Logic
+  const getDynamicPlaceholder = () => {
+    if (blueprint) return "Blueprint ready! Check the right panel...";
+    if (isLoading) return "Analyzing requirements...";
+    if (messages.length > 0) return "Type your answer here...";
+    return "E.g., I want to build a gents store website...";
+  };
 
   // Robust Blueprint Parser
   useEffect(() => {
@@ -79,14 +96,13 @@ export default function BlueprintGenerator() {
       
       if (res.ok) {
         setLeadStatus('success');
-        setLeadForm({ name: '', contact: '' }); // Instantly clear inputs
+        setLeadForm({ name: '', contact: '' });
         
-        // Wait 3 seconds, then completely reset the AI widget
         setTimeout(() => {
           setShowLeadForm(false);
           setLeadStatus('idle');
           setBlueprint(null);
-          setMessages([]); // Wipes chat history
+          setMessages([]); 
         }, 3000);
       } else {
         setLeadStatus('idle');
@@ -122,25 +138,30 @@ export default function BlueprintGenerator() {
   );
 
   return (
-    <div className="w-full max-w-5xl mx-auto bg-bg border border-border rounded-2xl overflow-hidden flex flex-col md:flex-row shadow-2xl h-200 md:h-150 outline-none">
+    <div className="w-full max-w-5xl mx-auto bg-bg border border-border rounded-2xl overflow-hidden flex flex-col md:flex-row shadow-2xl h-[600px] outline-none">
       
-      {/* Custom Sleek Scrollbar CSS */}
+      {/* Safe, isolated CSS for custom scrollbars */}
       <style>{`
-        .custom-scroll::-webkit-scrollbar { width: 6px; }
-        .custom-scroll::-webkit-scrollbar-track { background: transparent; }
-        .custom-scroll::-webkit-scrollbar-thumb { background-color: transparent; border-radius: 10px; }
-        .custom-scroll:hover::-webkit-scrollbar-thumb { background-color: var(--color-border); }
+        .ai-scroll::-webkit-scrollbar { width: 6px; }
+        .ai-scroll::-webkit-scrollbar-track { background: transparent; }
+        .ai-scroll::-webkit-scrollbar-thumb { background-color: rgba(150,150,150,0.2); border-radius: 10px; }
+        .ai-scroll:hover::-webkit-scrollbar-thumb { background-color: rgba(150,150,150,0.4); }
       `}</style>
 
-      {/* Left Col - Chat */}
-      <div className="w-full md:w-1/2 flex flex-col h-100 md:h-full border-b md:border-b-0 md:border-r border-border bg-surface/10">
-        <div className="p-4 border-b border-border flex items-center gap-2 shrink-0">
+      {/* LEFT COLUMN - CHAT */}
+      <div className="w-full md:w-1/2 flex flex-col h-full border-b md:border-b-0 md:border-r border-border bg-surface/10">
+        <div className="p-4 border-b border-border flex items-center gap-2 shrink-0 bg-bg z-10">
           <Bot className="w-5 h-5 text-accent" />
           <h3 className="font-semibold text-text">AI Strategist</h3>
         </div>
         
-        {/* Added custom-scroll and data-lenis-prevent */}
-        <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-4 outline-none custom-scroll" aria-live="polite" data-lenis-prevent="true">
+        {/* Chat Scroll Container */}
+        <div 
+          ref={chatContainerRef}
+          className="flex-1 overflow-y-auto p-4 flex flex-col gap-4 outline-none ai-scroll" 
+          aria-live="polite" 
+          data-lenis-prevent="true"
+        >
           {displayMessages.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-center p-6 text-muted animate-in fade-in">
               <Sparkles className="w-8 h-8 mb-3 opacity-50 text-accent" />
@@ -149,7 +170,6 @@ export default function BlueprintGenerator() {
           ) : (
             displayMessages.map(m => (
               <div key={m.id} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                {/* whitespace-pre-wrap added to fix line breaks! */}
                 <div className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm whitespace-pre-wrap leading-relaxed ${m.role === 'user' ? 'bg-accent text-accent-fg' : 'bg-surface border border-border text-text shadow-sm'}`}>
                   {m.displayContent}
                 </div>
@@ -166,26 +186,24 @@ export default function BlueprintGenerator() {
             </div>
           )}
 
-          {/* Clearer Chat Error bubble */}
           {error && (
             <div className="flex justify-start">
               <div className="bg-red-500/10 border border-red-500/20 text-red-500 rounded-2xl px-4 py-2.5 flex items-start gap-2 text-sm shadow-sm">
                 <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
-                <p>Connection failed or rate limit reached. Please wait a moment and try again.</p>
+                <p>Connection failed or rate limit reached. Please try again.</p>
               </div>
             </div>
           )}
-          <div ref={messagesEndRef} />
         </div>
 
         {/* Chat Input Form */}
-        <div className="p-4 bg-bg border-t border-border shrink-0">
+        <div className="p-4 bg-bg border-t border-border shrink-0 z-10">
           <form onSubmit={onSubmit} className="relative flex items-center">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="E.g., I want to build a gents store website..."
+              placeholder={getDynamicPlaceholder()}
               disabled={!!blueprint || isLoading}
               className="w-full bg-surface border border-border text-text rounded-full px-5 py-3.5 pr-12 text-sm focus:outline-none focus-visible:ring-1 focus-visible:ring-accent disabled:opacity-50 transition-all"
             />
@@ -200,14 +218,16 @@ export default function BlueprintGenerator() {
         </div>
       </div>
 
-      {/* Right Col - Flex Col Layout (Prevents Sticky Footer Overlap) */}
-      <div className="w-full md:w-1/2 flex flex-col h-100 md:h-full bg-bg outline-none">
+      {/* RIGHT COLUMN - BLUEPRINT */}
+      <div className="w-full md:w-1/2 flex flex-col h-full bg-bg outline-none">
         
-        <div className="flex-1 overflow-y-auto outline-none custom-scroll" data-lenis-prevent="true">
-          
-          {/* Empty State */}
+        {/* Blueprint Scroll Container */}
+        <div 
+          className="flex-1 overflow-y-auto outline-none ai-scroll p-6 md:p-8"
+          data-lenis-prevent="true"
+        >
           {!blueprint && !isLoading && !error && (
-            <div className="h-full flex flex-col items-center justify-center text-center p-8 text-muted animate-in fade-in">
+            <div className="h-full flex flex-col items-center justify-center text-center text-muted animate-in fade-in">
               <div className="w-16 h-16 rounded-full border border-dashed border-border flex items-center justify-center mb-4 bg-surface/50">
                 <Sparkles className="w-6 h-6 opacity-30" />
               </div>
@@ -215,20 +235,18 @@ export default function BlueprintGenerator() {
             </div>
           )}
 
-          {/* Major Error State for Blueprint Panel */}
           {error && !blueprint && (
-            <div className="h-full flex flex-col items-center justify-center text-center p-8 text-red-500 animate-in fade-in">
+            <div className="h-full flex flex-col items-center justify-center text-center text-red-500 animate-in fade-in">
               <div className="w-16 h-16 rounded-full border border-dashed border-red-500/30 flex items-center justify-center mb-4 bg-red-500/10">
                 <AlertCircle className="w-6 h-6 opacity-80" />
               </div>
               <h3 className="text-lg font-semibold text-text mb-2">AI is currently busy</h3>
-              <p className="text-sm text-muted">We've hit our API limit or lost connection. Please wait a moment and try again.</p>
+              <p className="text-sm text-muted">We've hit our API limit or lost connection. Please try again.</p>
             </div>
           )}
 
-          {/* Skeleton Loader */}
           {!blueprint && isLoading && displayMessages.length > 2 && !error && (
-            <div className="p-6 md:p-8 flex flex-col gap-6 w-full">
+            <div className="flex flex-col gap-6 w-full">
               <div>
                 <div className="h-6 w-48 bg-surface rounded animate-pulse mb-2"></div>
                 <div className="h-3 w-32 bg-surface rounded animate-pulse"></div>
@@ -241,9 +259,8 @@ export default function BlueprintGenerator() {
             </div>
           )}
 
-          {/* Completed Blueprint */}
           {blueprint && (
-            <div className="p-6 md:p-8 flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-8">
+            <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-4">
               <div>
                 <h2 className="text-2xl font-bold text-text mb-2">Project Blueprint</h2>
                 <p className="text-sm text-muted">Generated by Tencio AI</p>
@@ -274,7 +291,7 @@ export default function BlueprintGenerator() {
           )}
         </div>
 
-        {/* Sticky CTA Footer - shrink-0 ensures it never covers content */}
+        {/* Sticky CTA / Form Footer */}
         {blueprint && (
           <div className="w-full bg-bg/95 backdrop-blur-md border-t border-border p-4 md:p-6 shrink-0 z-20 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
             {!showLeadForm ? (
@@ -323,6 +340,7 @@ export default function BlueprintGenerator() {
           </div>
         )}
       </div>
+      
     </div>
   );
 }

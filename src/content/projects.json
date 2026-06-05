@@ -12,11 +12,6 @@
     "image": "/images/projects/nadan-ai.webp",
     "desc": "An intelligent fitness companion and calorie tracker web app powered by conversational AI.",
     "url": "https://nadan-ai.vercel.app/"
-  },
-  {
-    "title": "Tencio Brand Identity",
-    "category": "Logo & Branding",
-    "image": "/images/projects/tencio-brand.webp",
-    "desc": "Complete visual identity, logo design, and brand guidelines for our digital product agency."
   }
+  
 ]

@@ -18,7 +18,7 @@ const services = [
   {
     title: "Logo & Branding",
     description: "Memorable brand identities, typography, and cohesive visual language.",
-    icon: "M12 19l7-7 3 3-7 7-3-3zM18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5zM2 2l7.586 7.586" // custom pen/brush-ish shape
+    icon: "M12 19l7-7 3 3-7 7-3-3zM18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5zM2 2l7.586 7.586"
   },
   {
     title: "Poster & Creatives",
@@ -34,16 +34,15 @@ const services = [
 ---
 <section id="services" class="py-32 bg-surface/30 scroll-mt-16 overflow-hidden">
   <div class="max-w-7xl mx-auto px-6">
-    <div class="text-center mb-16 fade-up-services">
+    <div class="text-center mb-16 services-header">
       <h2 class="text-h2 font-bold text-text mb-4">Our Services</h2>
       <p class="text-muted text-lg max-w-2xl mx-auto">Comprehensive digital solutions to elevate your brand.</p>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {services.map((service, i) => (
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 services-grid">
+      {services.map((service) => (
         <div 
-          class="fade-up-services p-8 rounded-2xl bg-bg border border-border hover:border-accent transition-colors duration-300 group"
-          style={`transition-delay: ${0}ms;`}
+          class="service-card p-8 rounded-2xl bg-bg border border-border hover:border-accent transition-colors duration-300 group"
         >
           <div class="w-12 h-12 rounded-lg bg-surface flex items-center justify-center text-text group-hover:text-accent group-hover:bg-accent/10 transition-colors mb-6">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -62,21 +61,46 @@ const services = [
 
 <script>
   import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
   
-  gsap.utils.toArray('.fade-up-services').forEach((el: any, i) => {
-    gsap.fromTo(el, 
-      { y: 40, opacity: 0 },
-      {
-        scrollTrigger: {
-          trigger: el,
-          start: "top 85%",
-        },
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        delay: el.classList.contains('p-8') ? (i % 3) * 0.1 : 0,
-        ease: "power2.out"
-      }
-    );
+  // Register the plugin explicitly to prevent edge runtime drops
+  gsap.registerPlugin(ScrollTrigger);
+
+  // 1. Safe config for volatile Webviews (Instagram, Twitter, etc.)
+  ScrollTrigger.config({ 
+    ignoreMobileResize: true 
   });
+
+  // 2. Animate header cleanly
+  gsap.fromTo('.services-header', 
+    { y: 30, opacity: 0 },
+    {
+      scrollTrigger: {
+        trigger: '.services-header',
+        start: "top 85%",
+        toggleActions: "play none none none"
+      },
+      y: 0,
+      opacity: 1,
+      duration: 0.6,
+      ease: "power2.out"
+    }
+  );
+
+  // 3. Single trigger with stagger layout for cards (Fixes the crash)
+  gsap.fromTo('.service-card', 
+    { y: 40, opacity: 0 },
+    {
+      scrollTrigger: {
+        trigger: '.services-grid', 
+        start: "top 80%",
+        toggleActions: "play none none none"
+      },
+      y: 0,
+      opacity: 1,
+      duration: 0.7,
+      stagger: 0.1, // Smooth cascading effect without individual triggers
+      ease: "power2.out"
+    }
+  );
 </script>

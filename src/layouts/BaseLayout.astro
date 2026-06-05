@@ -96,19 +96,18 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://tencio.i
       }
     </script>
 
-    <script is:inline>
-      const getTheme = () => {
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('tencio-theme')) {
-          return localStorage.getItem('tencio-theme');
-        }
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          return 'dark';
-        }
-        return 'light';
-      };
-      const theme = getTheme();
-      document.documentElement.setAttribute('data-theme', theme);
-    </script>
+   <script is:inline>
+  const getTheme = () => {
+    // 1. If they explicitly toggled a preference before, respect it
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('tencio-theme')) {
+      return localStorage.getItem('tencio-theme');
+    }
+    // 2. Otherwise, ignore device setting and default strictly to dark mode
+    return 'dark';
+  };
+  const theme = getTheme();
+  document.documentElement.setAttribute('data-theme', theme);
+</script>
   </head>
   <body>
     <LoadingScreen/>

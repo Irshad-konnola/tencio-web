@@ -1,15 +1,31 @@
 ---
 import Button from '../ui/Button.astro';
 ---
-<section class="py-24 bg-accent text-accent-fg relative overflow-hidden my-16 mx-6 rounded-3xl max-w-7xl xl:mx-auto">
-  <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
-    <h2 class="text-h2 font-bold mb-6">Ready to build what's next?</h2>
-    <p class="text-lg mb-8 opacity-90 max-w-xl mx-auto">Let's discuss your project and see how Tencio can help you ship faster.</p>
-    <Button href="#start" class="bg-bg text-text hover:bg-surface hover:text-text h-12 px-8 border-none ring-0">
+<section class="py-24 bg-bg relative overflow-hidden my-16 mx-6 rounded-3xl max-w-7xl xl:mx-auto border border-border shadow-2xl">
+  
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-full bg-accent/5 blur-[120px] rounded-full pointer-events-none"></div>
+
+  <div class="absolute inset-0 opacity-[0.15] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"></div>
+
+  <div class="max-w-4xl mx-auto px-6 text-center relative z-10 flex flex-col items-center">
+    
+    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-mono uppercase tracking-wider mb-6">
+      <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
+      Available for new projects
+    </div>
+
+    <h2 class="text-h2 font-bold mb-6 text-text">Ready to build what's next?</h2>
+    
+    <p class="text-lg mb-8 text-muted max-w-xl mx-auto leading-relaxed">
+      Let's discuss your project and see how Tencio can help you ship faster with a solid digital foundation.
+    </p>
+    
+    <Button 
+      href="#start" 
+      class="bg-accent text-accent-fg hover:scale-105 transition-transform duration-300 h-12 px-8 ring-0 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg shadow-[0_0_20px_rgba(182,255,0,0.15)]"
+    >
       Start your project &rarr;
     </Button>
+
   </div>
-  
-  <!-- Subtle pattern overlay -->
-  <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#000_1px,transparent_1px)] bg-size-[16px_16px]"></div>
 </section>
