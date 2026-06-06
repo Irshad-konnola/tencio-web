@@ -17,21 +17,22 @@ import projects from '../../content/projects.json';
             href={project.url} 
             target={project.url ? "_blank" : undefined}
             rel={project.url ? "noopener noreferrer" : undefined}
-            class="project-card w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] max-w-[500px] flex-none group cursor-pointer block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-2xl"
+            class="project-card w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] max-w-[500px] flex-none group cursor-pointer block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-2xl select-none [-webkit-tap-highlight-color:transparent]"
             aria-label={project.url ? `Visit ${project.title} live website` : undefined}
           >
-            <div class="relative overflow-hidden rounded-2xl mb-6 aspect-4/3 bg-bg border border-border shadow-sm">
+            {/* FIX: Added transform-gpu to the wrapper to create a dedicated rendering layer */}
+            <div class="relative overflow-hidden rounded-2xl mb-6 aspect-4/3 bg-bg border border-border shadow-sm transform-gpu">
               <img 
                 src={project.image} 
                 alt={`Screenshot of ${project.title}`} 
-                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 transform-gpu will-change-transform"
                 loading="lazy"
                 decoding="async"
               />
               
-              <div class="absolute inset-0 bg-bg/0 group-hover:bg-bg/20 transition-colors duration-500 flex items-center justify-center">
+              <div class="absolute inset-0 bg-bg/0 group-hover:bg-bg/20 transition-colors duration-500 flex items-center justify-center pointer-events-none">
                 {project.url && (
-                  <div class="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 bg-accent text-accent-fg p-3 rounded-full shadow-lg">
+                  <div class="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 bg-accent text-accent-fg p-3 rounded-full shadow-lg transform-gpu will-change-[transform,opacity]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
                     </svg>

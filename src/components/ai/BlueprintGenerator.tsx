@@ -22,8 +22,7 @@ export default function BlueprintGenerator() {
   
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
-  // SMART AUTO-SCROLL: Only scrolls if the user is already at the bottom
-  // This completely stops the component from "fighting" the user's scroll wheel
+  // SMART AUTO-SCROLL: Only scrolls if the user is already near the bottom
   useEffect(() => {
     const container = chatContainerRef.current;
     if (!container) return;
@@ -38,15 +37,15 @@ export default function BlueprintGenerator() {
     }
   }, [messages]); 
 
-  // Dynamic Placeholder Logic
+  // DEVICE-AGNOSTIC PLACEHOLDER
   const getDynamicPlaceholder = () => {
-    if (blueprint) return "Blueprint ready! Check the right panel...";
+    if (blueprint) return "Blueprint ready! Review your results...";
     if (isLoading) return "Analyzing requirements...";
     if (messages.length > 0) return "Type your answer here...";
     return "E.g., I want to build a gents store website...";
   };
 
-  // Robust Blueprint Parser
+  // ROBUST BLUEPRINT PARSER
   useEffect(() => {
     const lastMessage = messages[messages.length - 1];
     const content = lastMessage?.parts
@@ -72,7 +71,7 @@ export default function BlueprintGenerator() {
     }
   }, [messages]);
 
-  // Handle Lead Submission & Reset
+  // HANDLE LEAD SUBMISSION & RESET
   const handleLeadSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLeadStatus('loading');
@@ -119,7 +118,7 @@ export default function BlueprintGenerator() {
     setInput('');
   };
 
-  // Strip JSON payload from visible chat
+  // STRIP JSON PAYLOAD FROM VISIBLE CHAT
   const displayMessages = messages.map(m => {
     const content = m.parts?.filter((p: any) => p.type === 'text').map((p: any) => p.text).join('') || '';
     if (m.role === 'assistant' && content.includes('[BLUEPRINT_START]')) {
@@ -138,9 +137,9 @@ export default function BlueprintGenerator() {
   );
 
   return (
-    <div className="w-full max-w-5xl mx-auto bg-bg border border-border rounded-2xl overflow-hidden flex flex-col md:flex-row shadow-2xl h-[600px] outline-none">
+    <div className="w-full max-w-5xl mx-auto bg-bg border border-border rounded-2xl overflow-hidden flex flex-col md:flex-row shadow-2xl h-auto md:h-[600px] outline-none">
       
-      {/* Safe, isolated CSS for custom scrollbars */}
+      {/* SAFE CUSTOM SCROLLBARS */}
       <style>{`
         .ai-scroll::-webkit-scrollbar { width: 6px; }
         .ai-scroll::-webkit-scrollbar-track { background: transparent; }
@@ -149,13 +148,12 @@ export default function BlueprintGenerator() {
       `}</style>
 
       {/* LEFT COLUMN - CHAT */}
-      <div className="w-full md:w-1/2 flex flex-col h-full border-b md:border-b-0 md:border-r border-border bg-surface/10">
+      <div className="w-full md:w-1/2 flex flex-col h-[500px] md:h-full border-b md:border-b-0 md:border-r border-border bg-surface/10">
         <div className="p-4 border-b border-border flex items-center gap-2 shrink-0 bg-bg z-10">
           <Bot className="w-5 h-5 text-accent" />
           <h3 className="font-semibold text-text">AI Strategist</h3>
         </div>
         
-        {/* Chat Scroll Container */}
         <div 
           ref={chatContainerRef}
           className="flex-1 overflow-y-auto p-4 flex flex-col gap-4 outline-none ai-scroll" 
@@ -196,7 +194,6 @@ export default function BlueprintGenerator() {
           )}
         </div>
 
-        {/* Chat Input Form */}
         <div className="p-4 bg-bg border-t border-border shrink-0 z-10">
           <form onSubmit={onSubmit} className="relative flex items-center">
             <input
@@ -218,10 +215,9 @@ export default function BlueprintGenerator() {
         </div>
       </div>
 
-      {/* RIGHT COLUMN - BLUEPRINT */}
-      <div className="w-full md:w-1/2 flex flex-col h-full bg-bg outline-none">
+      {/* RIGHT COLUMN - BLUEPRINT RESULTS */}
+      <div className="w-full md:w-1/2 flex flex-col h-[600px] md:h-full bg-bg outline-none">
         
-        {/* Blueprint Scroll Container */}
         <div 
           className="flex-1 overflow-y-auto outline-none ai-scroll p-6 md:p-8"
           data-lenis-prevent="true"
@@ -291,7 +287,7 @@ export default function BlueprintGenerator() {
           )}
         </div>
 
-        {/* Sticky CTA / Form Footer */}
+        {/* CTA FOOTER */}
         {blueprint && (
           <div className="w-full bg-bg/95 backdrop-blur-md border-t border-border p-4 md:p-6 shrink-0 z-20 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
             {!showLeadForm ? (
@@ -316,7 +312,7 @@ export default function BlueprintGenerator() {
                     onChange={(e) => setLeadForm({...leadForm, name: e.target.value})}
                     required
                     placeholder="Your Name"
-                    className="w-1/2 bg-surface border border-border text-text rounded-md px-4 py-2.5 text-sm focus:outline-none focus-visible:ring-1 focus-visible:ring-accent"
+                    className="w-full md:w-1/2 bg-surface border border-border text-text rounded-md px-4 py-2.5 text-sm focus:outline-none focus-visible:ring-1 focus-visible:ring-accent"
                   />
                   <input
                     id="contact"
@@ -325,7 +321,7 @@ export default function BlueprintGenerator() {
                     onChange={(e) => setLeadForm({...leadForm, contact: e.target.value})}
                     required
                     placeholder="Email or Phone"
-                    className="w-1/2 bg-surface border border-border text-text rounded-md px-4 py-2.5 text-sm focus:outline-none focus-visible:ring-1 focus-visible:ring-accent"
+                    className="w-full md:w-1/2 bg-surface border border-border text-text rounded-md px-4 py-2.5 text-sm focus:outline-none focus-visible:ring-1 focus-visible:ring-accent"
                   />
                 </div>
                 <button
