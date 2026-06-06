@@ -7,13 +7,24 @@ const currentYear = new Date().getFullYear();
     <div class="flex flex-col gap-4 md:col-span-2">
       <a
         href="/"
-        class="flex items-center gap-2 group w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
+        class="flex items-center gap-2 group w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm mb-2"
         aria-label="Tencio Home"
       >
-        <span class="text-2xl font-bold tracking-tight text-text">Tencio</span>
-        <span
-          class="w-2.5 h-2.5 rounded-full bg-accent group-hover:scale-125 transition-transform"
-        ></span>
+        <img 
+          src="/light-logo.png" 
+          alt="Tencio Logo" 
+          class="h-10 md:h-12 w-auto logo-light transition-transform group-hover:scale-105 scale-125 origin-left"
+          loading="lazy"
+          decoding="async"
+        />
+        
+        <img 
+          src="/dark-logo.png" 
+          alt="Tencio Logo" 
+          class="h-10 md:h-12 w-auto logo-dark transition-transform group-hover:scale-105 scale-125 origin-left"
+          loading="lazy"
+          decoding="async"
+        />
       </a>
       <p class="text-muted text-sm max-w-sm leading-relaxed">
         We build what's next. A lean digital product agency engineering
@@ -21,7 +32,7 @@ const currentYear = new Date().getFullYear();
         Kerala.
       </p>
       <a
-        href="mailto:tenciotech@gmail.com  "
+        href="mailto:tenciotech@gmail.com"
         class="text-text font-medium hover:text-accent transition-colors w-fit text-sm mt-2"
       >
         tenciotech@gmail.com
@@ -31,26 +42,10 @@ const currentYear = new Date().getFullYear();
     <div class="flex flex-col gap-4">
       <h3 class="font-semibold text-text tracking-wide">Sitemap</h3>
       <nav class="flex flex-col gap-3">
-        <a
-          href="#about"
-          class="text-sm text-muted hover:text-accent transition-colors w-fit"
-          >About</a
-        >
-        <a
-          href="#services"
-          class="text-sm text-muted hover:text-accent transition-colors w-fit"
-          >Services</a
-        >
-        <a
-          href="#work"
-          class="text-sm text-muted hover:text-accent transition-colors w-fit"
-          >Work</a
-        >
-        <a
-          href="#process"
-          class="text-sm text-muted hover:text-accent transition-colors w-fit"
-          >Process</a
-        >
+        <a href="#about" class="text-sm text-muted hover:text-accent transition-colors w-fit">About</a>
+        <a href="#services" class="text-sm text-muted hover:text-accent transition-colors w-fit">Services</a>
+        <a href="#work" class="text-sm text-muted hover:text-accent transition-colors w-fit">Work</a>
+        <a href="#process" class="text-sm text-muted hover:text-accent transition-colors w-fit">Process</a>
       </nav>
     </div>
 
@@ -64,23 +59,7 @@ const currentYear = new Date().getFullYear();
           target="_blank"
           rel="noopener noreferrer"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            ><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path
-              d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line
-              x1="17.5"
-              x2="17.51"
-              y1="6.5"
-              y2="6.5"></line></svg
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
         </a>
         <a
           href="https://wa.me/919400414976"
@@ -89,70 +68,42 @@ const currentYear = new Date().getFullYear();
           target="_blank"
           rel="noopener noreferrer"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            ><path
-              d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"
-            ></path></svg
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
         </a>
-        <!-- <a href="https://linkedin.com/company/tencio" class="text-muted hover:text-accent transition-all hover:scale-110" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-        </a>
-        <a href="https://twitter.com/tencio" class="text-muted hover:text-accent transition-all hover:scale-110" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
-        </a> -->
       </div>
     </div>
   </div>
 
-  <div
-    class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-4"
-  >
+  <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-4">
     <p class="text-xs text-muted">
       &copy; {currentYear} Tencio. All rights reserved.
     </p>
 
     <div class="flex items-center gap-6">
-      <a
-        href="/privacy"
-        class="text-xs text-muted hover:text-accent transition-colors"
-        >Privacy Policy</a
-      >
-      <a
-        href="/terms"
-        class="text-xs text-muted hover:text-accent transition-colors"
-        >Terms of Service</a
-      >
+      <a href="/privacy" class="text-xs text-muted hover:text-accent transition-colors">Privacy Policy</a>
+      <a href="/terms" class="text-xs text-muted hover:text-accent transition-colors">Terms of Service</a>
 
       <button
         id="back-to-top"
         class="ml-4 p-2 rounded-full bg-surface text-muted hover:bg-accent hover:text-accent-fg transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
         aria-label="Scroll back to top"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"><path d="m18 15-6-6-6 6"></path></svg
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"></path></svg>
       </button>
     </div>
   </div>
 </footer>
+
+<style>
+  .logo-light { display: block; }
+  .logo-dark { display: none; }
+
+  :global(html[data-theme="dark"]) .logo-light { display: none; }
+  :global(html[data-theme="dark"]) .logo-dark { display: block; }
+
+  :global(html[data-theme="light"]) .logo-light { display: block; }
+  :global(html[data-theme="light"]) .logo-dark { display: none; }
+</style>
 
 <script>
   // Smooth scroll back to top using Lenis if available, fallback to native

@@ -8,7 +8,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://tencio.ai',
+  site: 'https://tencio.in',
   output: 'server',
   integrations: [react()],
   adapter: vercel(),

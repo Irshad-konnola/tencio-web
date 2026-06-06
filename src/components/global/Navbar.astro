@@ -6,9 +6,25 @@ import Button from '../ui/Button.astro';
   <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-accent text-accent-fg px-4 py-2 rounded-md z-50">Skip to content</a>
 
   <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between w-full">
+    
     <a href="/" class="flex items-center gap-2 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm active:scale-95 transition-transform" aria-label="Tencio Home">
-      <span class="text-xl font-bold tracking-tight text-text transition-colors group-hover:text-text">Tencio</span>
-      <span class="w-2 h-2 rounded-full bg-accent group-hover:scale-125 transition-transform"></span>
+      
+      <img 
+        src="/light-logo.png" 
+        alt="Tencio Logo" 
+        class="h-8 w-auto logo-light transition-transform group-hover:scale-105"
+        loading="eager"
+        decoding="async"
+      />
+      
+      <img 
+        src="/dark-logo.png" 
+        alt="Tencio Logo" 
+        class="h-8 w-auto logo-dark transition-transform group-hover:scale-105"
+        loading="eager"
+        decoding="async"
+      />
+
     </a>
 
     <nav class="hidden md:flex items-center gap-8">
@@ -61,6 +77,20 @@ import Button from '../ui/Button.astro';
     </div>
   </div>
 </header>
+
+<style>
+  /* Base state (assuming light theme defaults if JS hasn't loaded) */
+  .logo-light { display: block; }
+  .logo-dark { display: none; }
+
+  /* When the global HTML tag has data-theme="dark" */
+  :global(html[data-theme="dark"]) .logo-light { display: none; }
+  :global(html[data-theme="dark"]) .logo-dark { display: block; }
+
+  /* Fallback for explicit light theme definition */
+  :global(html[data-theme="light"]) .logo-light { display: block; }
+  :global(html[data-theme="light"]) .logo-dark { display: none; }
+</style>
 
 <script>
   // Mobile Menu Logic
