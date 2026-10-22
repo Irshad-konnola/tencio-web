@@ -22,27 +22,45 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://tencio.i
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+    <!-- Favicon & App Icons -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="generator" content={Astro.generator} />
     
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
     
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Tencio" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL('/og-image.png', canonicalURL)} />
+    <meta property="og:image" content={new URL('/og-image-1200x630.png', canonicalURL)} />
+    <meta property="og:image:secure_url" content={new URL('/og-image-1200x630.png', canonicalURL)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content="Tencio | Digital Product Agency" />
     
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalURL} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={new URL('/og-image.png', canonicalURL)} />
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL('/og-image-1200x630.png', canonicalURL)} />
+    <meta name="twitter:image:alt" content="Tencio | Digital Product Agency" />
 
-    <meta name="theme-color" content="#B6FF00">
-    <meta name="privacy-policy" content="https://tencio.in/privacy">
+    <!-- Mobile Theme Color -->
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FFFFFF" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0A0A0A" />
+    <meta name="msapplication-TileColor" content="#27187e" />
+    <meta name="privacy-policy" content="https://tencio.in/privacy" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,13 +81,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://tencio.i
             "@id": "https://tencio.in/#org",
             "name": "Tencio",
             "url": "https://tencio.in",
-            "logo": "https://tencio.in/favicon.png",
+            "logo": "https://tencio.in/logo/svg/tencio-logo-color.svg",
+            "image": "https://tencio.in/og-image-1200x630.png",
             "contactPoint": { "@type": "ContactPoint", "contactType": "sales", "email": "tenciotech@gmail.com" }
           },
           {
             "@type": "LocalBusiness",
             "name": "Tencio",
-            "image": "https://tencio.in/og-image.png",
+            "image": "https://tencio.in/og-image-1200x630.png",
             "@id": "https://tencio.in/#localbiz",
             "url": "https://tencio.in",
             "address": {
