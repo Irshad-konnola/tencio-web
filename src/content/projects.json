@@ -1,17 +1,103 @@
 [
   {
+    "title": "Altrex GMS",
+    "category": "Multi-Tenant SaaS • Fitness ERP",
+    "client": "Altrex Fitness Systems",
+    "image": "/images/projects/altrex-gms.webp",
+    "desc": "End-to-end cloud gym management SaaS with automated WhatsApp billing alerts, Razorpay payment links, and biometric facial recognition turnstile sync.",
+    "challenge": "Fitness centers were losing recurring revenue due to manual spreadsheet tracking, missed fee follow-ups, and disconnected biometric access hardware.",
+    "deliverables": [
+      "Multi-tenant cloud architecture with strict PostgreSQL Row-Level Security (RLS) for multi-branch gyms",
+      "Automated Meta WhatsApp Cloud API engine sending fee reminders, receipts, and Razorpay payment links",
+      "Real-time webhook synchronization with Hikvision MinMoe & eSSL facial recognition terminals",
+      "Executive financial dashboard tracking Monthly Recurring Revenue (MRR), active cohorts, and churn"
+    ],
+    "tags": ["Next.js", "TypeScript", "Supabase", "Razorpay API", "WhatsApp Cloud API", "Biometric Sync"],
+    "url": "",
+    "statusNote": "Marketing Portal Launching Soon"
+  },
+  {
+    "title": "Tencio Menu Hub",
+    "category": "Hospitality SaaS • Realtime Web",
+    "client": "Tencio Product Suite",
+    "image": "/images/projects/tencio-menu-hub.webp",
+    "desc": "Real-time QR digital menu and table-service SaaS featuring zero-refresh live kitchen updates and native background Web Push waiter alerts.",
+    "challenge": "Restaurants using static PDF QR menus struggled with slow mobile downloads, outdated item availability, and no digital way for tables to call staff.",
+    "deliverables": [
+      "Instant-loading Next.js 15 Server-Side Rendered (SSR) mobile menu tailored for table QR scans",
+      "Bi-directional Supabase Realtime WebSockets to reflect sold-out items and price changes without refreshing",
+      "Native Service Worker & Web Push API integration for one-tap 'Call Waiter' and 'Request Bill' alerts",
+      "Multi-tenant restaurant admin dashboard with category scheduling and tiered subscription logic"
+    ],
+    "tags": ["Next.js 15", "TypeScript", "Supabase WebSockets", "Web Push API", "Tailwind CSS"],
+    "url": "https://tencio-menu-hub.vercel.app/"
+  },
+  {
+    "title": "Men's Club Store",
+    "category": "Retail Storefront • Local SEO",
+    "client": "Men's Club Apparel",
+    "image": "/images/projects/mensclub.webp",
+    "desc": "High-performance retail storefront and seasonal lookbook engineered with Framer Motion transitions and Schema.org local business structured data.",
+    "challenge": "A premier men's formal wear and custom tailoring brand needed to capture high-intent local search traffic and convert mobile browsers into in-store visitors.",
+    "deliverables": [
+      "Interactive digital lookbooks showcasing formal wear, wedding ethnic collections, and bespoke tailoring",
+      "Rich Schema.org JSON-LD local business metadata for top visibility on regional Google searches",
+      "Next.js media optimization pipeline delivering crisp apparel photography with zero layout shift",
+      "Direct mobile conversion flows with one-tap WhatsApp catalog inquiry and store navigation"
+    ],
+    "tags": ["Next.js", "React", "Framer Motion", "Tailwind CSS", "Schema.org SEO"],
+    "url": "https://mensclubstore.in/"
+  },
+  {
     "title": "Bloomspace Interiors",
-    "category": "Corporate Website",
+    "category": "Headless Showroom • UAE",
+    "client": "Bloomspace Design (Abu Dhabi, UAE)",
     "image": "/images/projects/bloomspace-client.webp",
-    "desc": "A premium, high-performance corporate website engineered for a luxury interior design firm based in Saudi Arabia.",
+    "desc": "A luxury digital showroom engineered for an Abu Dhabi interior design firm featuring a Sanity headless CMS studio and Snapchat Pixel attribution.",
+    "challenge": "The UAE design team needed an editorial-grade digital showroom capable of serving high-resolution interior portfolios fast on mobile while managing content in-house.",
+    "deliverables": [
+      "Decoupled Sanity.io Headless CMS studio enabling non-technical staff to publish new projects independently",
+      "Scroll-linked editorial reveals and smooth gallery transitions built with Framer Motion",
+      "Production Snapchat Pixel conversion tracking tailored for UAE social ad attribution",
+      "Serverless lead capture workflows for residential and commercial fit-out consultations"
+    ],
+    "tags": ["Next.js", "Sanity CMS", "Framer Motion", "Tailwind CSS", "Snapchat Pixel"],
     "url": "https://bloomspacedesign.com/"
   },
   {
     "title": "Nadan AI",
     "category": "AI Web Application",
+    "client": "Harif (Fitness & Nutrition Platform)",
     "image": "/images/projects/nadan-ai.webp",
-    "desc": "An intelligent fitness companion and calorie tracker web app powered by conversational AI.",
+    "desc": "An intelligent fitness companion and multilingual calorie tracker supporting English, Malayalam, and Manglish food queries via Gemini Flash AI.",
+    "challenge": "Global nutrition apps fail to recognize regional South Indian cuisine or break when users search using phonetic Manglish spellings.",
+    "deliverables": [
+      "Tri-lingual search engine supporting English, Malayalam script, and phonetic Manglish queries",
+      "Sub-millisecond local fuzzy search indexing using Fuse.js with custom phonetic weight tuning",
+      "Google Gemini Flash LLM integration returning structured JSON macro-nutrient breakdowns for custom meals",
+      "Mobile-first daily calorie and protein goal tracking dashboard"
+    ],
+    "tags": ["Next.js", "Google Gemini AI", "Fuse.js", "Tailwind CSS", "Prompt Engineering"],
     "url": "https://nadan-ai.vercel.app/"
+  },
+  {
+    "title": "Sol & Tree",
+    "category": "Brand Identity & Company Profile",
+    "client": "Sol & Tree",
+    "image": "/images/projects/sol-and-tree.webp",
+    "gallery": [
+      "/images/projects/sol-and-tree-1.webp",
+      "/images/projects/sol-and-tree-2.webp"
+    ],
+    "desc": "Comprehensive corporate profile brochure and visual identity system crafted with editorial typography, custom layouts, and print-ready specifications.",
+    "challenge": "Sol & Tree needed a cohesive, executive-level company profile brochure that communicated brand credibility across both B2B digital presentations and physical print.",
+    "deliverables": [
+      "Multi-page corporate profile brochure layout with custom grid geometry and visual hierarchy",
+      "Cohesive color palette, typographic scale, and custom iconography system",
+      "Print-ready CMYK artwork alongside interactive, compressed digital PDF decks for client pitching"
+    ],
+    "tags": ["Company Profile", "Brochure Design", "Visual Identity", "Editorial Layout", "Print & Digital"],
+    "url": "",
+    "statusNote": "Brand Identity & Print Deliverable"
   }
-  
 ]
